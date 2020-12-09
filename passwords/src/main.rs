@@ -1,7 +1,7 @@
+use regex::Regex;
 use std::env;
 use std::fs::File;
-use std::io::{BufReader, BufRead};
-use regex::Regex;
+use std::io::{BufRead, BufReader};
 use std::ops::Index;
 
 fn parse_file(file: &str) -> Vec<String> {
@@ -15,11 +15,16 @@ fn parse_file(file: &str) -> Vec<String> {
     strs
 }
 
-fn validate_password(min:usize, max: usize, character: &str, password: &str) -> bool {
-    let first = password.get(min-1..min).unwrap();
-    let second = password.get(max-1..max).unwrap();
-    println!("{}, {}, {}", first, second , (first == character) ^ (second == character));
-    
+fn validate_password(min: usize, max: usize, character: &str, password: &str) -> bool {
+    let first = password.get(min - 1..min).unwrap();
+    let second = password.get(max - 1..max).unwrap();
+    println!(
+        "{}, {}, {}",
+        first,
+        second,
+        (first == character) ^ (second == character)
+    );
+
     (first == character) ^ (second == character)
 }
 
@@ -40,7 +45,6 @@ fn valid_passwords(strs: Vec<String>) -> i32 {
     }
     count
 }
-
 
 fn main() {
     let args: Vec<String> = env::args().collect();

@@ -1,6 +1,6 @@
 use std::env;
 use std::fs::File;
-use std::io::{BufReader, BufRead};
+use std::io::{BufRead, BufReader};
 
 fn parse_file(file: &str) -> Vec<i128> {
     let file = File::open(file).unwrap();
@@ -16,19 +16,18 @@ fn parse_file(file: &str) -> Vec<i128> {
 
 fn find_numbers(nums: Vec<i128>) -> i128 {
     for x in 0..nums.len() {
-        for y in (x+1)..nums.len() {
+        for y in (x + 1)..nums.len() {
             // println!("{}, {}", x, y);
-            for z in (y+1)..nums.len() {
-                if nums[x]+nums[y]+nums[z] == 2020 {
+            for z in (y + 1)..nums.len() {
+                if nums[x] + nums[y] + nums[z] == 2020 {
                     // println!("{}, {}, {}", nums[x], nums[y], nums[z]);
-                    return nums[x]*nums[y]*nums[z];
+                    return nums[x] * nums[y] * nums[z];
                 }
             }
         }
     }
     0
 }
-
 
 fn main() {
     let args: Vec<String> = env::args().collect();

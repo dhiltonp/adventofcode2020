@@ -1,6 +1,6 @@
 use std::env;
 use std::fs::File;
-use std::io::{BufReader, BufRead};
+use std::io::{BufRead, BufReader};
 
 fn parse_file(file: &str) -> Vec<i128> {
     let file = File::open(file).unwrap();
@@ -16,12 +16,12 @@ fn parse_file(file: &str) -> Vec<i128> {
 
 fn find_numbers(nums: Vec<i128>) -> i128 {
     for x in 0..nums.len() {
-        for y in (x+1)..nums.len() {
+        for y in (x + 1)..nums.len() {
             // println!("{}, {}", x, y);
-            for z in (y+1)..nums.len() {
-                if nums[x]+nums[y]+nums[z] == 2020 {
+            for z in (y + 1)..nums.len() {
+                if nums[x] + nums[y] + nums[z] == 2020 {
                     // println!("{}, {}, {}", nums[x], nums[y], nums[z]);
-                    return nums[x]*nums[y]*nums[z];
+                    return nums[x] * nums[y] * nums[z];
                 }
             }
         }
@@ -29,11 +29,11 @@ fn find_numbers(nums: Vec<i128>) -> i128 {
     0
 }
 
-fn is_sum(n: i128, nums: Vec<i128>) -> bool{
+fn is_sum(n: i128, nums: Vec<i128>) -> bool {
     for i in 0..nums.len() {
-        for j in i+1..nums.len() {
+        for j in i + 1..nums.len() {
             println!("{} = {}+{}", n, nums[i], nums[j]);
-            if n == nums[i]+nums[j] {
+            if n == nums[i] + nums[j] {
                 println!("true");
                 return true;
             }
@@ -44,7 +44,7 @@ fn is_sum(n: i128, nums: Vec<i128>) -> bool{
 
 fn find_invalid(preamble: usize, nums: &[i128]) -> i128 {
     for i in preamble..nums.len() {
-        if is_sum(nums[i], nums[i-preamble..i].to_owned()) {
+        if is_sum(nums[i], nums[i - preamble..i].to_owned()) {
             continue;
         } else {
             return i as i128;
@@ -57,7 +57,7 @@ fn find_invalid(preamble: usize, nums: &[i128]) -> i128 {
 fn find_contiguous(val: i128, nums: &[i128]) {
     for i in 0..nums.len() {
         let mut sum = nums[i];
-        for j in i+1..nums.len() {
+        for j in i + 1..nums.len() {
             sum += nums[j];
             if sum == val {
                 let mut min = nums[i];
@@ -71,12 +71,11 @@ fn find_contiguous(val: i128, nums: &[i128]) {
                         max = *num;
                     }
                 }
-                println!("{}-{}, {}", i, j, min+max);
+                println!("{}-{}, {}", i, j, min + max);
             }
         }
     }
 }
-
 
 fn main() {
     let args: Vec<String> = env::args().collect();

@@ -1,6 +1,6 @@
-use std::fs::File;
 use std::env;
-use std::io::{BufReader, BufRead};
+use std::fs::File;
+use std::io::{BufRead, BufReader};
 
 fn parse_file(file: &str) -> Vec<String> {
     let file = File::open(file).unwrap();
@@ -20,8 +20,13 @@ fn count_trees(over: usize, down: usize, rows: &[String]) -> i64 {
     let mut trees = 0;
     let mut x = 0;
     for y in (0..(rows.len())).step_by(down) {
-        println!("{}, {}, {}", y, x, rows[y].get(x%width..x%width+1).unwrap());
-        if rows[y].get(x%width..x%width+1).unwrap() == "#" {
+        println!(
+            "{}, {}, {}",
+            y,
+            x,
+            rows[y].get(x % width..x % width + 1).unwrap()
+        );
+        if rows[y].get(x % width..x % width + 1).unwrap() == "#" {
             println!("tree");
             trees += 1;
         }
@@ -39,7 +44,6 @@ fn main() {
     trees *= count_trees(5, 1, &rows);
     trees *= count_trees(7, 1, &rows);
     trees *= count_trees(1, 2, &rows);
-
 
     println!("{}", trees);
 }

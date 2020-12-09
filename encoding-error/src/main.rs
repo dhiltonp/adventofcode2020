@@ -54,10 +54,35 @@ fn find_invalid(preamble: usize, nums: &Vec<i128>) -> i128 {
     return 0;
 }
 
+fn find_contiguous(val: i128, nums: &Vec<i128>) {
+    for i in 0..nums.len() {
+        let mut sum = nums[i];
+        for j in i+1..nums.len() {
+            sum += nums[j];
+            if sum == val {
+                let mut min = nums[i];
+                let mut max = nums[i];
+                for x in i..j {
+                    println!("min/max for {}", nums[x]);
+                    if min > nums[x] {
+                        min = nums[x];
+                    }
+                    if max < nums[x] {
+                        max = nums[x];
+                    }
+                }
+                println!("{}-{}, {}", i, j, min+max);
+            }
+        }
+    }
+}
+
 
 fn main() {
     let args: Vec<String> = env::args().collect();
     let nums = parse_file(&args[1]);
     let invalid = find_invalid(25, &nums);
-    println!("{}: {}", invalid, nums[invalid as usize])
+    println!("{}: {}", invalid, nums[invalid as usize]);
+
+    find_contiguous(nums[invalid as usize], &nums);
 }

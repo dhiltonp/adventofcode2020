@@ -15,14 +15,14 @@ fn parse_file(file: &str) -> Vec<String> {
     return strs;
 }
 
-fn validate_password(min:i32, max: i32, character: &str, password: &str) -> bool {
+fn validate_password(min:usize, max: usize, character: &str, password: &str) -> bool {
     let count: Vec<&str> = password.split(character).collect();
-    let occurrences = (count.len() - 1) as i32;
-    if !(occurrences >= min && occurrences <= max) {
-        println!("not compliant: {}, {}, {}, {}", min, max, character, password);
-    }
-
-    return occurrences >= min && occurrences <= max;
+    let occurrences = (count.len() - 1);
+    let first = password.get(min-1..min).unwrap();
+    let second = password.get(max-1..max).unwrap();
+    println!("{}, {}, {}", first, second , (first == character) ^ (second == character));
+    
+    return (first == character) ^ (second == character);
 }
 
 fn valid_passwords(strs: Vec<String>) -> i32 {
@@ -32,8 +32,8 @@ fn valid_passwords(strs: Vec<String>) -> i32 {
     for s in &strs {
         println!("{}", s);
         let parsed = parse_line.captures(s).unwrap();
-        let min = parsed.index(1).parse::<i32>().unwrap();
-        let max = parsed.index(2).parse::<i32>().unwrap();
+        let min = parsed.index(1).parse::<usize>().unwrap();
+        let max = parsed.index(2).parse::<usize>().unwrap();
         let character = parsed.index(3);
         let password = parsed.index(4);
         if validate_password(min, max, character, password) {

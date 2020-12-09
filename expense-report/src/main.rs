@@ -1,6 +1,6 @@
 use std::env;
 use std::fs::File;
-use std::io::{Read, BufReader, BufRead};
+use std::io::{BufReader, BufRead};
 
 fn parse_file(file: &str) -> Vec<i128> {
     let file = File::open(file).unwrap();
@@ -11,7 +11,7 @@ fn parse_file(file: &str) -> Vec<i128> {
         let n = l.parse::<i128>().unwrap();
         nums.push(n);
     }
-    return nums;
+    nums
 }
 
 fn find_numbers(nums: Vec<i128>) -> i128 {
@@ -26,7 +26,7 @@ fn find_numbers(nums: Vec<i128>) -> i128 {
             }
         }
     }
-    return 0;
+    0
 }
 
 

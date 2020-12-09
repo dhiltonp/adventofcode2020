@@ -1,6 +1,6 @@
 use std::env;
 use std::fs::File;
-use std::io::{Read, BufReader, BufRead};
+use std::io::{BufReader, BufRead};
 
 fn parse_file(file: &str) -> Vec<i128> {
     let file = File::open(file).unwrap();
@@ -11,7 +11,7 @@ fn parse_file(file: &str) -> Vec<i128> {
         let n = l.parse::<i128>().unwrap();
         nums.push(n);
     }
-    return nums;
+    nums
 }
 
 fn find_numbers(nums: Vec<i128>) -> i128 {
@@ -26,7 +26,7 @@ fn find_numbers(nums: Vec<i128>) -> i128 {
             }
         }
     }
-    return 0;
+    0
 }
 
 fn is_sum(n: i128, nums: Vec<i128>) -> bool{
@@ -39,10 +39,10 @@ fn is_sum(n: i128, nums: Vec<i128>) -> bool{
             }
         }
     }
-    return false;
+    false
 }
 
-fn find_invalid(preamble: usize, nums: &Vec<i128>) -> i128 {
+fn find_invalid(preamble: usize, nums: &[i128]) -> i128 {
     for i in preamble..nums.len() {
         if is_sum(nums[i], nums[i-preamble..i].to_owned()) {
             continue;
@@ -51,10 +51,10 @@ fn find_invalid(preamble: usize, nums: &Vec<i128>) -> i128 {
         }
     }
 
-    return 0;
+    0
 }
 
-fn find_contiguous(val: i128, nums: &Vec<i128>) {
+fn find_contiguous(val: i128, nums: &[i128]) {
     for i in 0..nums.len() {
         let mut sum = nums[i];
         for j in i+1..nums.len() {
@@ -62,13 +62,13 @@ fn find_contiguous(val: i128, nums: &Vec<i128>) {
             if sum == val {
                 let mut min = nums[i];
                 let mut max = nums[i];
-                for x in i..j {
-                    println!("min/max for {}", nums[x]);
-                    if min > nums[x] {
-                        min = nums[x];
+                for num in nums.iter().take(j).skip(i) {
+                    println!("min/max for {}", num);
+                    if min > *num {
+                        min = *num;
                     }
-                    if max < nums[x] {
-                        max = nums[x];
+                    if max < *num {
+                        max = *num;
                     }
                 }
                 println!("{}-{}, {}", i, j, min+max);

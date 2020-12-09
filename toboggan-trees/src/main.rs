@@ -1,6 +1,6 @@
 use std::fs::File;
 use std::env;
-use std::io::{Read, BufReader, BufRead};
+use std::io::{BufReader, BufRead};
 
 fn parse_file(file: &str) -> Vec<String> {
     let file = File::open(file).unwrap();
@@ -10,10 +10,10 @@ fn parse_file(file: &str) -> Vec<String> {
         let l = line.unwrap();
         strs.push(l);
     }
-    return strs;
+    strs
 }
 
-fn count_trees(over: usize, down: usize, rows: &Vec<String>) -> i64 {
+fn count_trees(over: usize, down: usize, rows: &[String]) -> i64 {
     let width = rows[0].len();
     println!("{}", width);
 
@@ -27,7 +27,7 @@ fn count_trees(over: usize, down: usize, rows: &Vec<String>) -> i64 {
         }
         x += over;
     }
-    return trees;
+    trees
 }
 
 fn main() {

@@ -13,21 +13,27 @@ fn parse_file(file: &str) -> Vec<String> {
     return strs;
 }
 
-fn main() {
-    let args: Vec<String> = env::args().collect();
-    let rows = parse_file(&args[1]);
+fn count_trees(over: usize, down: usize, rows: Vec<String>) -> i32 {
     let width = rows[0].len();
     println!("{}", width);
 
     let mut trees = 0;
     let mut x = 0;
-    for y in (0..(rows.len())).step_by(1) {
+    for y in (0..(rows.len())).step_by(down) {
         println!("{}, {}, {}", y, x, rows[y].get(x%width..x%width+1).unwrap());
         if rows[y].get(x%width..x%width+1).unwrap() == "#" {
             println!("tree");
             trees += 1;
         }
-        x += 3;
+        x += over;
     }
+    return trees;
+}
+
+fn main() {
+    let args: Vec<String> = env::args().collect();
+    let rows = parse_file(&args[1]);
+    let trees = count_trees(3, 1, rows);
+
     println!("{}", trees);
 }

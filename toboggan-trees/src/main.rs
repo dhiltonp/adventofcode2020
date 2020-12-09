@@ -13,7 +13,7 @@ fn parse_file(file: &str) -> Vec<String> {
     return strs;
 }
 
-fn count_trees(over: usize, down: usize, rows: Vec<String>) -> i32 {
+fn count_trees(over: usize, down: usize, rows: &Vec<String>) -> i64 {
     let width = rows[0].len();
     println!("{}", width);
 
@@ -33,7 +33,13 @@ fn count_trees(over: usize, down: usize, rows: Vec<String>) -> i32 {
 fn main() {
     let args: Vec<String> = env::args().collect();
     let rows = parse_file(&args[1]);
-    let trees = count_trees(3, 1, rows);
+
+    let mut trees = count_trees(1, 1, &rows);
+    trees *= count_trees(3, 1, &rows);
+    trees *= count_trees(5, 1, &rows);
+    trees *= count_trees(7, 1, &rows);
+    trees *= count_trees(1, 2, &rows);
+
 
     println!("{}", trees);
 }
